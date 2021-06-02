@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 5
     },
     containerActive: {
-        backgroundColor: colors.green_light
+        backgroundColor: colors.green
     },
     text: {
         color: colors.heading,
