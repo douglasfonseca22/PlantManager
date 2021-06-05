@@ -118,8 +118,8 @@ export function PlantSelect() {
             <View>
                 <FlatList
                     data={enviroments}
+                    keyExtractor={(item) => item.key}
                     renderItem={({ item }) => (
-
                         <EnviromentButton
                             title={item.title}
                             active={item.key === enviromentsSelected}

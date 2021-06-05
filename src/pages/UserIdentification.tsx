@@ -7,10 +7,12 @@ import {
     TextInput,
     KeyboardAvoidingView,
     Platform,
-    Keyboard
+    Keyboard,
+    Alert
 } from 'react-native';
 
 import { useNavigation } from '@react-navigation/core';
+import  AsyncStore from '@react-native-async-storage/async-storage';
 
 import { Button } from '../components/Button';
 
@@ -40,7 +42,12 @@ export function UserIdentification() {
     }
 
 
-    function handleStart() {
+    async function handleStart() {
+        if (!name)
+            return Alert.alert('Me diz como chamar você 😢')
+
+        await AsyncStore.setItem('@plantmanager:user', name);
+
         navigation.navigate('Confirmation')
     }
     return (
