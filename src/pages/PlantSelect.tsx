@@ -14,6 +14,7 @@ import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 import { PlantCardPrimary } from '../components/PlantCardPrimary';
 import { Load } from '../components/Load'
+import { useNavigation } from '@react-navigation/core';
 
 interface EnviromentProps {
     key: string;
@@ -41,7 +42,8 @@ export function PlantSelect() {
 
     const [page, setPage] = useState(1);
     const [loadingMore, setLoadingMore] = useState(false);
-    const [loadedAll, setLoadedAll] = useState(false);
+
+    const navigation = useNavigation();
 
     function handleenviromentsSelected(enviroments: string) {
         setenviromentsSelected(enviroments);
@@ -82,6 +84,10 @@ export function PlantSelect() {
         fetchPlants();
     }
 
+    function handlePlantSelect(plant: PlantsProps) {
+        navigation.navigate('PlantSave', { plant })
+    }
+
     useEffect(() => {
         async function fetchEnviroment() {
             const { data } = await api.get('plants_environments?_sort=title&_order=asc');
@@ -118,7 +124,7 @@ export function PlantSelect() {
             <View>
                 <FlatList
                     data={enviroments}
-                    keyExtractor={(item) => item.key}
+                    keyExtractor={(item) => String(item.key)}
                     renderItem={({ item }) => (
                         <EnviromentButton
                             title={item.title}
@@ -134,8 +140,12 @@ export function PlantSelect() {
             <View style={styles.plants}>
                 <FlatList
                     data={filteredplants}
+                    keyExtractor={(item) => String(item.id)}
                     renderItem={({ item }) => (
-                        <PlantCardPrimary data={item} />
+                        <PlantCardPrimary
+                            data={item}
+                            onPress={() => handlePlantSelect(item)}
+                        />
                     )}
                     showsHorizontalScrollIndicator={false}
                     numColumns={2}
