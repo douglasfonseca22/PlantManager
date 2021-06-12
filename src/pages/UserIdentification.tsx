@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 import { useNavigation } from '@react-navigation/core';
-import  AsyncStore from '@react-native-async-storage/async-storage';
+import AsyncStore from '@react-native-async-storage/async-storage';
 
 import { Button } from '../components/Button';
 
@@ -46,9 +46,18 @@ export function UserIdentification() {
         if (!name)
             return Alert.alert('Me diz como chamar você 😢')
 
-        await AsyncStore.setItem('@plantmanager:user', name);
-
-        navigation.navigate('Confirmation')
+        try {
+            await AsyncStore.setItem('@plantmanager:user', name);
+            navigation.navigate('Confirmation', {
+                title: 'Prontinho',
+                subtitle: 'Agora vamos começar a cuidar das suas plantinhas com muito cuidado.',
+                buttonTitle: 'Começar',
+                icon: 'smile',
+                nextScreen: 'PlantSelect',
+            })
+        } catch{
+            Alert.alert('Não foi possível salvar o seu nome. 😢')
+        }
     }
     return (
         <SafeAreaView style={styles.container}>

@@ -15,22 +15,13 @@ import waterdrop from '../assets/waterdrop.png';
 import colors from '../styles/colors';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import fonts from '../styles/fonts';
-import { useRoute } from '@react-navigation/core'
+import { useNavigation, useRoute } from '@react-navigation/core'
 import DatetimePicker, { Event } from '@react-native-community/datetimepicker';
 import { format, isBefore } from 'date-fns';
+import { PlantProps, savePlant } from '../libs/storage';
+
 interface Params {
-    plant: {
-        id: string;
-        name: string;
-        about: string;
-        water_tips: string;
-        photo: string;
-        environments: [string];
-        frequency: {
-            times: number;
-            repeat_every: string;
-        }
-    }
+    plant: PlantProps
 }
 
 export function PlantSave() {
@@ -39,6 +30,8 @@ export function PlantSave() {
 
     const route = useRoute();
     const { plant } = route.params as Params;
+
+    const navigation = useNavigation();
 
     function handleChangeTime(event: Event, dateTime: Date | undefined) {
         if (Platform.OS == 'android') {
@@ -55,6 +48,25 @@ export function PlantSave() {
     function handleOpenDateTimePickerForAndroid() {
         setShowDatePicker(oldState => !oldState)
     }
+
+    async function handleSave() {
+        try {
+            await savePlant({
+                ...plant, 
+                dateTimeNotification: selectDateTime
+            })
+            navigation.navigate('Confirmation', {
+                title: 'Tudo Certo',
+                subtitle: 'Fique tranquilo que sempre vamos lembrar você de cuidar da sua plantinha com muito cuidado.',
+                buttonTitle: 'Muito Obrigado :D ',
+                icon: 'hug',
+                nextScreen: 'MyPlants',
+            })
+        } catch {
+            Alert.alert('Não foi possível salvar. 😢')
+        }
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.plantInfo}>
@@ -105,13 +117,13 @@ export function PlantSave() {
                             onPress={handleOpenDateTimePickerForAndroid}>
                             <Text style={styles.dateTimePickerText}>
                                 {`Mudar ${format(selectDateTime, 'HH:mm')}`}
-                        </Text>
+                            </Text>
                         </TouchableOpacity>
                     )
                 }
                 <Button
                     title="Cadastrar planta"
-                    onPress={() => { }}
+                    onPress={handleSave}
                 />
             </View>
         </View>

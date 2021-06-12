@@ -15,6 +15,7 @@ import fonts from '../styles/fonts';
 import { PlantCardPrimary } from '../components/PlantCardPrimary';
 import { Load } from '../components/Load'
 import { useNavigation } from '@react-navigation/core';
+import { PlantProps } from '../libs/storage';
 
 interface EnviromentProps {
     key: string;
@@ -35,7 +36,7 @@ interface PlantsProps {
 }
 export function PlantSelect() {
     const [enviroments, setEnviroments] = useState<EnviromentProps[]>([]);
-    const [plants, setPlants] = useState<PlantsProps[]>([]);
+    const [plants, setPlants] = useState<PlantProps[]>([]);
     const [filteredplants, setFilteredPlants] = useState<PlantsProps[]>([]);
     const [enviromentsSelected, setenviromentsSelected] = useState('all');
     const [loading, setLoading] = useState(true)
