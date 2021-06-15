@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import colors from '../styles/colors';
 import { PlantSelect } from '../pages/PlantSelect';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { MyPlants } from '../pages/MyPlants';
 
 const AppTab = createBottomTabNavigator();
@@ -25,8 +25,8 @@ const AuthRoutes = () => {
                 component={PlantSelect}
                 options={{
                     tabBarIcon: (({ size, color }) => (
-                        <MaterialCommunityIcons
-                            name="arrow-down-bold-circle-outline"
+                        <MaterialIcons
+                            name="add-circle-outline"
                             size={size}
                             color={color}
                         />
@@ -38,7 +38,7 @@ const AuthRoutes = () => {
                 component={MyPlants}
                 options={{
                     tabBarIcon: (({ size, color }) => (
-                        <MaterialCommunityIcons
+                        <MaterialIcons
                             name="format-list-bulleted"
                             size={size}
                             color={color}
