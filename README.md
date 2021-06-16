@@ -16,7 +16,7 @@
   <a href="https://github.com/douglasfonseca22/Plantmanager/network">
     <img alt="GitHub forks" src="https://img.shields.io/github/forks/douglasfonseca22/Plantmanager?color=29B6D1&style=flat-square">
   </a>
-  <a href="https://github.com/douglasfonseca22/podcastr-nlw05/stargazers">
+  <a href="https://github.com/douglasfonseca22/PlantManager/stargazers">
     <img alt="GitHub stars" src="https://img.shields.io/github/stars/douglasfonseca22/Plantmanager?color=29B6D1&style=flat-square">
   </a>
 </h1>
